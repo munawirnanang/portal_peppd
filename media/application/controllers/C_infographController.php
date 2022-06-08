@@ -61,7 +61,12 @@ class C_infographController extends CI_Controller
             $this->load->view('pages/include/V_footer');
         } */
 
+
+
         $db2 = $this->load->database('pemantauan', TRUE);
+
+        $data['list_indikator'] = $db2->query("SELECT * FROM indikator")->result_array();
+        $data['list_provinsi'] = $db2->query("SELECT * FROM provinsi")->result_array();
 
         if (isset($_GET['indikator'])) {
             $data['indikator'] = strtolower(str_replace("_", " ", $_GET['indikator']));
@@ -74,16 +79,17 @@ class C_infographController extends CI_Controller
             $data['subWilayah'] = $db2->query("SELECT * FROM provinsi WHERE id ='" . $kodeSubWilayah . "'")->result_array();
         }
         if (isset($_GET['kabupatenkota'])) {
-            $data['kabupatenkota'] = $_GET['kabupatenkota'];
+            $kodeKabupatenKota = $_GET['kabupatenkota'];
+            $data['subWilayahDaerah'] = $db2->query("SELECT * FROM kabupaten WHERE id ='" . $kodeKabupatenKota . "'")->result_array();
         }
 
 
         $data['IndikatorTable'] = $db2->query("SELECT * FROM indikator WHERE nama_indikator = '" . $data['indikator'] . "'")->result_array();
         if ($data['wilayah'] == 'nasional') {
-            $data['infograph'] = $db2->query("SELECT * FROM (SELECT * FROM nilai_indikator WHERE (id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='1000') AND (id_periode, versi) in (select id_periode, max(versi) as versi from nilai_indikator WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='1000' group by id_periode) group by id_periode order by id_periode desc limit 6) y order by id_periode ASC")->result_array();
+            $data['infographnasional'] = $db2->query("SELECT * FROM (SELECT * FROM nilai_indikator WHERE (id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='1000') AND (id_periode, versi) in (select id_periode, max(versi) as versi from nilai_indikator WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='1000' group by id_periode) group by id_periode order by id_periode desc limit 6) y order by id_periode ASC")->result_array();
         } else if ($data['wilayah'] == 'provinsi') {
-            $data['infograph'] = $db2->query("SELECT * FROM (SELECT * FROM nilai_indikator WHERE (id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeSubWilayah . "') AND (id_periode, versi) in (select id_periode, max(versi) as versi from nilai_indikator WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeSubWilayah . "' group by id_periode) group by id_periode order by id_periode desc limit 6) y order by id_periode ASC")->result_array();
-            $data['graphperbandinganwilayah'] = $db2->query("SELECT p.label AS label, e.* FROM provinsi p JOIN nilai_indikator e ON p.id = e.wilayah WHERE (e.id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND e.id_periode='" . $data['infograph'][5]['id_periode'] . "') AND (wilayah, versi) IN (SELECT x.wilayah, max(x.versi) AS versi FROM nilai_indikator x WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND id_periode='" . $data['infograph'][5]['id_periode'] . "' GROUP BY wilayah) GROUP BY wilayah ORDER BY wilayah ASC")->result_array();
+            $data['infographprovinsi'] = $db2->query("SELECT * FROM (SELECT * FROM nilai_indikator WHERE (id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeSubWilayah . "') AND (id_periode, versi) in (select id_periode, max(versi) as versi from nilai_indikator WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeSubWilayah . "' group by id_periode) group by id_periode order by id_periode desc limit 6) y order by id_periode ASC")->result_array();
+            $data['graphperbandinganwilayah'] = $db2->query("SELECT p.label AS label, e.* FROM provinsi p JOIN nilai_indikator e ON p.id = e.wilayah WHERE (e.id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND e.id_periode='" . $data['infographprovinsi'][5]['id_periode'] . "') AND (wilayah, versi) IN (SELECT x.wilayah, max(x.versi) AS versi FROM nilai_indikator x WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND id_periode='" . $data['infographprovinsi'][5]['id_periode'] . "' GROUP BY wilayah) GROUP BY wilayah ORDER BY wilayah ASC")->result_array();
         } else if ($data['wilayah'] == 'kabupatenkota') {
             $sql_nilai_indikator = $db2->query("SELECT * FROM (select * from nilai_indikator where (id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='1000') AND periode !='01' AND (id_periode, versi) in (select id_periode, max(versi) as versi from nilai_indikator WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='1000' group by id_periode) group by id_periode order by id_periode desc limit 6) y order by id_periode ASC")->result();
             foreach ($sql_nilai_indikator as $row_sql) {
@@ -91,6 +97,8 @@ class C_infographController extends CI_Controller
             }
             $periode_kab_max = max($idperiode);
             $data['graphperbandinganwilayah'] = $db2->query("select p.nama_kabupaten as label, e.* from kabupaten p join nilai_indikator e on p.id = e.wilayah where p.prov_id='" . $kodeSubWilayah . "' and (e.id_indikator='1' AND e.id_periode='" . $periode_kab_max . "') AND (wilayah, versi) in (select x.wilayah, max(x.versi) as versi from nilai_indikator x  where id_indikator='1' AND id_periode='" . $periode_kab_max . "' group by wilayah ) group by wilayah order by wilayah asc")->result_array();
+            $data['infographprovinsi'] = $db2->query("SELECT * FROM (select * from nilai_indikator where (id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeSubWilayah . "') AND (id_periode, versi) in (select id_periode, max(versi) as versi from nilai_indikator WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeSubWilayah . "' group by id_periode) group by id_periode order by id_periode desc limit 6) y order by id_periode ASC")->result_array();
+            $data['infographkabupatenkota'] = $db2->query("SELECT * FROM (select * from nilai_indikator where (id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeKabupatenKota . "') AND (id_periode, versi) in (select id_periode, max(versi) as versi from nilai_indikator WHERE id_indikator='" . $data['IndikatorTable'][0]['id'] . "' AND wilayah='" . $kodeKabupatenKota . "' group by id_periode) group by id_periode order by id_periode desc limit 6) y order by id_periode ASC")->result_array();
         } else {
             $data['infograph'] = 'Wilayah belum diisi';
         }

@@ -57,8 +57,8 @@
         <!-- infografis card -->
         <div class="col-md-12">
           <section class="card-infografis">
-            <div class="row" style="overflow-x: scroll; flex-wrap: nowrap; font-family: 'Monda', sans-serif;">
-              <div class="card ml-3 mt-2 mb-3" style="min-width: 270px; height: 150px; border-radius: 10px; border: 1px solid black;">
+            <div class="row" style="overflow-x: none; flex-wrap: nowrap; font-family: 'Monda', sans-serif;">
+              <div class="card ml-3 mt-2 mb-3" style="min-width: 240px; height: 150px; border-radius: 10px; border: 1px solid black;">
                 <div class="card-body">
                   <div class="col-12 px-0">
                     <h6 class="card-title mb-3" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Tingkat Pengangguran Terbuka</b></h6>
@@ -84,7 +84,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card ml-3 mt-2 mb-3" style="min-width: 270px; height: 150px; border-radius: 10px; border: 1px solid black;">
+              <div class="card ml-3 mt-2 mb-3" style="min-width: 240px; height: 150px; border-radius: 10px; border: 1px solid black;">
                 <div class="card-body">
                   <div class="col-12 px-0">
                     <h6 class="card-title mb-3" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Tingkat Kemiskinan</b></h6>
@@ -110,7 +110,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card ml-3 mt-2 mb-3" style="min-width: 270px; height: 150px; border-radius: 10px; border: 1px solid black;">
+              <div class="card ml-3 mt-2 mb-3" style="min-width: 240px; height: 150px; border-radius: 10px; border: 1px solid black;">
                 <div class="card-body">
                   <div class="col-12 px-0">
                     <h6 class="card-title mb-3" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Indeks Pembangunan Manusia</b></h6>

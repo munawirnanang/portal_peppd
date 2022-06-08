@@ -48,21 +48,9 @@ Last Update  : 15 March 2022 -->
                                 <div class="form-group">
                                     <label for="indikator">Indikator</label>
                                     <select class="form-control" class="selectIndikator" name="indikator">
-                                        <option value="pertumbuhan_ekonomi">Pertumbuhan Ekonomi</option>
-                                        <option value="pdrb_per_kapita_adhb">PDRB per Kapita ADHB</option>
-                                        <option value="pdrb_per_kapita_adhk">PDRB per Kapita ADHK</option>
-                                        <option value="jumlah_penganggur">Jumlah Penganggur</option>
-                                        <option value="tingkat_pengangguran_terbuka">Tingkat Pengangguran Terbuka</option>
-                                        <option value="indeks_pembangunan_manusia">Indeks Pembangunan Manusia</option>
-                                        <option value="gini_rasio">Gini Rasio</option>
-                                        <option value="angka_harapan_hidup">Angka Harapan Hidup</option>
-                                        <option value="rata_rata_lama_sekolah">Rata-rata Lama Sekolah</option>
-                                        <option value="harapan_lama_sekolah">Harapan Lama Sekolah</option>
-                                        <option value="pengeluaran_per_kapita">Pengeluaran Per kapita</option>
-                                        <option value="indeks_kedalaman_kemiskinan_p1">Indeks Kedalaman Kemiskinan (P1)</option>
-                                        <option value="indeks_keparahan_kemiskinan_p2">Indeks Keparahan Kemiskinan (P2)</option>
-                                        <option value="persentase_penduduk_miskin">Persentase Penduduk Miskin</option>
-                                        <option value="jumlah_penduduk_miskin">Jumlah Penduduk Miskin</option>
+                                        <?php foreach ($list_indikator as $list_ind) { ?>
+                                            <option value="<?php echo $list_ind['nama_indikator'] ?>"><?php echo $list_ind['nama_indikator'] ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -77,6 +65,9 @@ Last Update  : 15 March 2022 -->
                                     <label for="sub-wilayah">Sub Wilayah</label>
                                     <select class="form-control" id="selectSubWilayah" name="subWilayah">
                                         <option>-Pilih-</option>
+                                        <?php foreach ($list_provinsi as $list_p) { ?>
+                                            <option value="<?php echo $list_p['id'] ?>"><?php echo $list_p['nama_provinsi'] ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group form-group-kabupaten-kota" style="display: none;">
@@ -207,7 +198,7 @@ Last Update  : 15 March 2022 -->
 
                             <div class="row" style="margin: 20px; margin-top: 40px;">
 
-                                <div class="<?php echo ($wilayah == 'nasional' ? 'col-md-12' : 'col-md-6') ?> order-md-4" style="margin-bottom: 20px;">
+                                <div class="<?php echo ($wilayah == 'nasional' ? 'col-md-12' : 'col-md-12') ?> order-md-4" style="margin-bottom: 20px;">
                                     <div class="card" style="height: 250px;">
                                         <div class="card-body" style="padding: 10px; padding-left: 3px;">
                                             <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -230,38 +221,66 @@ Last Update  : 15 March 2022 -->
                                             </div>
                                             <div class="card-body" style="display: flex; padding: 1rem 0.5rem 0.5rem 0.5rem;">
                                                 <p class="deskripsiGrafikPerbandingan" style="font-family: 'Monda', sans-serif; font-size: 12px; font-style: italic; margin: 0px; color: white;">
-                                                    <?php if ($infograph[4]['nasional'] >= $infograph[5]['nasional']) {
+                                                    <?php if ($infographnasional[4]['nasional'] >= $infographnasional[5]['nasional']) {
                                                         $status_capaian = 'di bawah';
-                                                    } elseif ($infograph[4]['nasional'] <= $infograph[5]['nasional']) {
+                                                    } elseif ($infographnasional[4]['nasional'] <= $infographnasional[5]['nasional']) {
                                                         $status_capaian = 'di atas';
-                                                    } elseif ($infograph[4]['nasional'] == $infograph[5]['nasional']) {
+                                                    } elseif ($infographnasional[4]['nasional'] == $infographnasional[5]['nasional']) {
                                                         $status_capaian = 'sama dengan';
                                                     } else {
                                                         $status_capaian = 'unknown';
                                                     } ?>
-                                                    Capaian <?php echo $IndikatorTable[0]['nama_indikator']; ?> Nasional pada <?php echo date("F", mktime(0, 0, 0, $infograph[5]['periode'], 10)); ?> <?php echo $infograph[5]['tahun'] ?> berada <?php echo $status_capaian; ?> capaian pada <?php echo date("F", mktime(0, 0, 0, $infograph[4]['periode'], 10)); ?> <?php echo $infograph[4]['tahun'] ?>. Capaian <?php echo $IndikatorTable[0]['nama_indikator']; ?> Nasional pada <?php echo date("F", mktime(0, 0, 0, $infograph[5]['periode'], 10)); ?> <?php echo $infograph[5]['tahun'] ?> sebesar <?php echo $infograph[5]['nasional'] ?><?php echo $infograph[5]['satuan']; ?>
+                                                    Capaian <?php echo $IndikatorTable[0]['nama_indikator']; ?> Nasional pada <?php echo date("F", mktime(0, 0, 0, $infographnasional[5]['periode'], 10)); ?> <?php echo $infographnasional[5]['tahun'] ?> berada <?php echo $status_capaian; ?> capaian pada <?php echo date("F", mktime(0, 0, 0, $infographnasional[4]['periode'], 10)); ?> <?php echo $infographnasional[4]['tahun'] ?>. Capaian <?php echo $IndikatorTable[0]['nama_indikator']; ?> Nasional pada <?php echo date("F", mktime(0, 0, 0, $infographnasional[5]['periode'], 10)); ?> <?php echo $infographnasional[5]['tahun'] ?> sebesar <?php echo $infographnasional[5]['nasional'] ?><?php echo $infographnasional[5]['satuan']; ?>
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 <?php } elseif ($wilayah == 'provinsi') { ?>
-                                    <div class="col-md-6 order-md-5">
-                                        <div class="card" style="border: 2px solid black; background-color: #3E86DA;">
-                                            <div class="card-title" style="width: 230px; position: absolute; top: -25px; border: 2px solid black; align-self: center; text-align: center; padding-left: 5px; padding-right: 5px; margin-bottom: 0px; background-color: #85B9F5; color: white;">
+                                    <div class="col-md-12 order-md-5">
+                                        <div class="card" style="border: 2px solid black; background-color: #3E86DA; margin-bottom: 20px;">
+                                            <div class="card-title" style="width: 80%; position: absolute; top: -12px; border: 2px solid black; align-self: center; text-align: center; padding-left: 5px; padding-right: 5px; margin-bottom: 0px; background-color: #85B9F5; color: white;">
                                                 <p class="JudulGrafikPerbandingan" style="margin-bottom: 0px;">Perbandingan <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php echo ($wilayah == "provinsi" ? "Nasional dengan Provinsi" : "Nasional"); ?> </p>
                                             </div>
                                             <div class="card-body" style="display: flex; padding: 1rem 0.5rem 0.5rem 0.5rem;">
                                                 <p class="deskripsiGrafikPerbandingan" style="font-family: 'Monda', sans-serif; font-size: 12px; font-style: italic; margin: 0px; color: white;">
-                                                    <?php if ($infograph[4]['nilai'] >= $infograph[5]['nilai']) {
+                                                    <?php if ($infographprovinsi[4]['nilai'] >= $infographprovinsi[5]['nilai']) {
                                                         $status_capaian = 'di bawah';
-                                                    } elseif ($infograph[4]['nilai'] <= $infograph[5]['nilai']) {
+                                                    } elseif ($infographprovinsi[4]['nilai'] <= $infographprovinsi[5]['nilai']) {
                                                         $status_capaian = 'di atas';
-                                                    } elseif ($infograph[4]['nilai'] == $infograph[5]['nilai']) {
+                                                    } elseif ($infographprovinsi[4]['nilai'] == $infographprovinsi[5]['nilai']) {
                                                         $status_capaian = 'sama dengan';
                                                     } else {
                                                         $status_capaian = 'unknown';
                                                     } ?>
-                                                    <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php echo $subWilayah[0]['nama_provinsi']; ?> pada tahun <?php echo $infograph[5]['tahun'] ?> <?php echo $status_capaian; ?> dibandingkan dengan tahun <?php echo $infograph[4]['tahun'] ?>. Pada tahun <?php echo $infograph[5]['tahun'] ?> <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php echo $subWilayah[0]['nama_provinsi']; ?> adalah sebesar <?php echo $infograph[5]['nilai'] ?>%, sedangkan pada tahun <?php echo $infograph[4]['tahun'] ?> pertumbuhannya tercatat sebesar <?php echo $infograph[4]['nilai'] ?>%.
+                                                    <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php echo $subWilayah[0]['nama_provinsi']; ?> pada tahun <?php echo $infographprovinsi[5]['tahun'] ?> <?php echo $status_capaian; ?> dibandingkan dengan tahun <?php echo $infographprovinsi[4]['tahun'] ?>. Pada tahun <?php echo $infographprovinsi[5]['tahun'] ?> <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php echo $subWilayah[0]['nama_provinsi']; ?> adalah sebesar <?php echo $infographprovinsi[5]['nilai'] ?>%, sedangkan pada tahun <?php echo $infographprovinsi[4]['tahun'] ?> pertumbuhannya tercatat sebesar <?php echo $infographprovinsi[4]['nilai'] ?>%.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } elseif ($wilayah == 'kabupatenkota') { ?>
+                                    <div class="col-md-12 order-md-5">
+                                        <div class="card" style="border: 2px solid black; background-color: #3E86DA; margin-bottom: 20px;">
+                                            <div class="card-title" style="width: 80%; position: absolute; top: -12px; border: 2px solid black; align-self: center; text-align: center; padding-left: 5px; padding-right: 5px; margin-bottom: 0px; background-color: #85B9F5; color: white;">
+                                                <p class="JudulGrafikPerbandingan" style="margin-bottom: 0px;">Perbandingan <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php if ($wilayah == 'nasional') {
+                                                                                                                                                                                    echo 'Nasional';
+                                                                                                                                                                                } elseif ($wilayah == 'provinsi') {
+                                                                                                                                                                                    echo 'Nasional dengan Provinsi';
+                                                                                                                                                                                } elseif ($wilayah == 'kabupatenkota') {
+                                                                                                                                                                                    echo 'Nasional dengan Daerah';
+                                                                                                                                                                                } ?> </p>
+                                            </div>
+                                            <div class="card-body" style="display: flex; padding: 1rem 0.5rem 0.5rem 0.5rem;">
+                                                <p class="deskripsiGrafikPerbandingan" style="font-family: 'Monda', sans-serif; font-size: 12px; font-style: italic; margin: 0px; color: white;">
+                                                    <?php if ($infographkabupatenkota[4]['nilai'] >= $infographkabupatenkota[5]['nilai']) {
+                                                        $status_capaian = 'di bawah';
+                                                    } elseif ($infographkabupatenkota[4]['nilai'] <= $infographkabupatenkota[5]['nilai']) {
+                                                        $status_capaian = 'di atas';
+                                                    } elseif ($infographkabupatenkota[4]['nilai'] == $infographkabupatenkota[5]['nilai']) {
+                                                        $status_capaian = 'sama dengan';
+                                                    } else {
+                                                        $status_capaian = 'unknown';
+                                                    } ?>
+                                                    <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php echo $subWilayahDaerah[0]['nama_kabupaten']; ?> pada tahun <?php echo $infographkabupatenkota[5]['tahun'] ?> <?php echo $status_capaian; ?> dibandingkan dengan tahun <?php echo $infographkabupatenkota[4]['tahun'] ?>. Pada tahun <?php echo $infographkabupatenkota[5]['tahun'] ?> <?php echo $IndikatorTable[0]['nama_indikator']; ?> <?php echo $subWilayahDaerah[0]['nama_kabupaten']; ?> adalah sebesar <?php echo $infographkabupatenkota[5]['nilai'] ?>, sedangkan pada tahun <?php echo $infographkabupatenkota[4]['tahun'] ?> pertumbuhannya tercatat sebesar <?php echo $infographkabupatenkota[4]['nilai'] ?>.
                                                 </p>
                                             </div>
                                         </div>
@@ -273,8 +292,8 @@ Last Update  : 15 March 2022 -->
                             <?php if ($wilayah != 'nasional') { ?>
                                 <div class="row" style="margin: 20px; margin-top: 0px;">
 
-                                    <div class="col-12 order-md-7">
-                                        <div class="card" style="height: 315px; margin-bottom: 20px;">
+                                    <div class="col-12 order-md-6">
+                                        <div class="card" style="height: 315px; margin-bottom: 10px;">
                                             <div class="card-body" style="padding: 10px; padding-left: 3px;">
                                                 <script src="https://code.highcharts.com/highcharts.js"></script>
                                                 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -288,20 +307,55 @@ Last Update  : 15 March 2022 -->
                                         </div>
                                     </div>
 
-                                    <div class="col-12 order-md-6">
+                                    <div class="col-12 order-md-7">
                                         <div class="card" style="border: 2px solid black; border-radius: 5px 15px 5px 15px; background-color: #FFB703; margin-bottom: 20px;">
                                             <div class="card-body" style="display: flex; padding: 0.5rem 0.5rem 0.5rem 0.5rem;">
-                                                <?php if ($infograph[5]['nasional'] >= $infograph[5]['nilai']) {
-                                                    $status_capaian_indikator = 'di bawah';
-                                                } elseif ($infograph[5]['nasional'] <= $infograph[5]['nilai']) {
-                                                    $status_capaian_indikator = 'di atas';
-                                                } elseif ($infograph[5]['nasional'] == $infograph[5]['nilai']) {
-                                                    $status_capaian_indikator = 'sama dengan';
-                                                } else {
-                                                    $status_capaian_indikator = 'unknown';
-                                                } ?>
-                                                <p style="font-family: 'Monda', sans-serif; font-size: 12px; font-style: italic; margin: 0px;">
-                                                    Capaian <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php echo $subWilayah[0]['nama_provinsi'] ?> pada tahun <?php echo $infograph[5]['tahun'] ?> <?php echo $status_capaian_indikator; ?> Nasional. <?php echo $IndikatorTable[0]['nama_indikator'] ?> Nasional pada tahun <?php echo $infograph[5]['tahun'] ?> adalah sebesar <?php echo $infograph[5]['nilai']; ?>%.
+                                                <?php if ($wilayah == 'nasional') { ?>
+                                                    <?php if ($infographnasional[5]['nasional'] >= $infographnasional[5]['nilai']) {
+                                                        $status_capaian_indikator = 'di bawah';
+                                                    } elseif ($infographnasional[5]['nasional'] <= $infographnasional[5]['nilai']) {
+                                                        $status_capaian_indikator = 'di atas';
+                                                    } elseif ($infographnasional[5]['nasional'] == $infographnasional[5]['nilai']) {
+                                                        $status_capaian_indikator = 'sama dengan';
+                                                    } else {
+                                                        $status_capaian_indikator = 'unknown';
+                                                    } ?>
+                                                    <p style="font-family: 'Monda', sans-serif; font-size: 12px; font-style: italic; margin: 0px;">
+                                                        Capaian <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php echo $subWilayah[0]['nama_provinsi'] ?> pada tahun <?php echo $infographnasional[5]['tahun'] ?> <?php echo $status_capaian_indikator; ?> Nasional. <?php echo $IndikatorTable[0]['nama_indikator'] ?> Nasional pada tahun <?php echo $infographnasional[5]['tahun'] ?> adalah sebesar <?php echo $infographnasional[5]['nilai']; ?>%.
+                                                    <?php } else if ($wilayah == 'provinsi') { ?>
+                                                        <?php if ($infographprovinsi[5]['nasional'] >= $infographprovinsi[5]['nilai']) {
+                                                            $status_capaian_indikator = 'di bawah';
+                                                        } elseif ($infographprovinsi[5]['nasional'] <= $infographprovinsi[5]['nilai']) {
+                                                            $status_capaian_indikator = 'di atas';
+                                                        } elseif ($infographprovinsi[5]['nasional'] == $infographprovinsi[5]['nilai']) {
+                                                            $status_capaian_indikator = 'sama dengan';
+                                                        } else {
+                                                            $status_capaian_indikator = 'unknown';
+                                                        } ?>
+                                                    <p style="font-family: 'Monda', sans-serif; font-size: 12px; font-style: italic; margin: 0px;">
+                                                        Capaian <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php echo $subWilayah[0]['nama_provinsi'] ?> pada tahun <?php echo $infographprovinsi[5]['tahun'] ?> <?php echo $status_capaian_indikator; ?> capaian Nasional. <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php echo $subWilayah[0]['nama_provinsi'] ?> pada tahun <?php echo $infographprovinsi[5]['tahun'] ?> adalah sebesar <?php echo $infographprovinsi[5]['nilai']; ?>, sedangkan <?php echo $IndikatorTable[0]['nama_indikator'] ?> Nasional pada tahun <?php echo $infographprovinsi[5]['tahun'] ?> adalah sebesar <?php echo $infographprovinsi[5]['nasional']; ?>.
+                                                    <?php } else if ($wilayah == 'kabupatenkota') { ?>
+                                                        <?php if ($infographkabupatenkota[5]['nasional'] >= $infographkabupatenkota[5]['nilai']) {
+                                                            $status_capaian_indikator_nasional_daerah = 'di bawah';
+                                                        } elseif ($infographkabupatenkota[5]['nasional'] <= $infographkabupatenkota[5]['nilai']) {
+                                                            $status_capaian_indikator_nasional_daerah = 'di atas';
+                                                        } elseif ($infographkabupatenkota[5]['nasional'] == $infographkabupatenkota[5]['nilai']) {
+                                                            $status_capaian_indikator_nasional_daerah = 'sama dengan';
+                                                        } else {
+                                                            $status_capaian_indikator_nasional_daerah = 'unknown';
+                                                        } ?>
+                                                        <?php if ($infographprovinsi[5]['nilai'] >= $infographkabupatenkota[5]['nilai']) {
+                                                            $status_capaian_indikator_provinsi_daerah = 'di bawah';
+                                                        } elseif ($infographprovinsi[5]['nilai'] <= $infographkabupatenkota[5]['nilai']) {
+                                                            $status_capaian_indikator_provinsi_daerah = 'di atas';
+                                                        } elseif ($infographprovinsi[5]['nilai'] == $infographkabupatenkota[5]['nilai']) {
+                                                            $status_capaian_indikator_provinsi_daerah = 'sama dengan';
+                                                        } else {
+                                                            $status_capaian_indikator_provinsi_daerah = 'unknown';
+                                                        } ?>
+                                                    <p style="font-family: 'Monda', sans-serif; font-size: 12px; font-style: italic; margin: 0px;">
+                                                        Capaian <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php echo $subWilayahDaerah[0]['nama_kabupaten'] ?> pada tahun <?php echo $infographkabupatenkota[5]['tahun'] ?> <?php echo $status_capaian_indikator_nasional_daerah; ?> capaian Nasional dan <?php echo $status_capaian_indikator_provinsi_daerah; ?> capaian Provinsi. <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php echo $subWilayahDaerah[0]['nama_kabupaten'] ?> pada tahun <?php echo $infographkabupatenkota[5]['tahun'] ?> adalah sebesar <?php echo $infographkabupatenkota[5]['nilai']; ?>, sedangkan <?php echo $IndikatorTable[0]['nama_indikator'] ?> Nasional pada tahun <?php echo $infographkabupatenkota[5]['tahun'] ?> adalah sebesar <?php echo $infographkabupatenkota[5]['nasional']; ?> dan <?php echo $IndikatorTable[0]['nama_indikator'] ?> Provinsi pada tahun <?php echo $infographprovinsi[5]['tahun'] ?> adalah sebesar <?php echo $infographprovinsi[5]['nilai']; ?>.
+                                                    <?php } ?>
                                             </div>
                                         </div>
                                     </div>
@@ -313,7 +367,14 @@ Last Update  : 15 March 2022 -->
                                 <div class="card" style="border: 2px solid black; border-radius: 5px 5px 15px 15px; margin: 20px; margin-top: 10px; background-color: #4CC9F0;">
                                     <div class="card-body" style="display: flex; padding: 0rem 0rem; align-self: center; text-align: end;">
                                         <p style="font-family: 'Monda', sans-serif; font-size: 12px; margin: 0px; color: white;">
-                                            Sumber data: <?php echo $infograph[0]['sumber'] ?>
+                                            Sumber data:
+                                            <?php if ($wilayah == 'nasional') {
+                                                echo $infographnasional[0]['sumber'];
+                                            } else if ($wilayah == 'provinsi') {
+                                                echo $infographprovinsi[0]['sumber'];
+                                            } else if ($wilayah == 'kabupatenkota') {
+                                                echo $infographkabupatenkota[0]['sumber'];
+                                            } ?>
                                         </p>
                                     </div>
                                 </div>
@@ -456,25 +517,109 @@ Last Update  : 15 March 2022 -->
             height: 230
         },
         title: {
-            text: 'Perbandingan <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php echo ($wilayah == 'provinsi' ? 'Nasional dengan Provinsi' : 'Nasional') ?>',
+            text: 'Perbandingan <?php echo $IndikatorTable[0]['nama_indikator'] ?> <?php if ($wilayah == 'nasional') {
+                                                                                        echo 'Nasional';
+                                                                                    } else if ($wilayah == 'provinsi') {
+                                                                                        echo 'Nasional dengan Provinsi';
+                                                                                    } else if ($wilayah == 'kabupatenkota') {
+                                                                                        echo 'Nasional dengan Daerah';
+                                                                                    } ?>',
             style: {
                 fontFamily: 'monospace',
                 fontSize: '1.2em',
             }
         },
         subtitle: {
-            text: 'Source: <?php echo $infograph[0]['sumber'] ?>',
+            text: 'Source: <?php if ($wilayah == 'nasional') {
+                                echo $infographnasional[0]['sumber'];
+                            } else if ($wilayah == 'provinsi') {
+                                echo $infographprovinsi[0]['sumber'];
+                            } else if ($wilayah == 'kabupatenkota') {
+                                echo $infographkabupatenkota[0]['sumber'];
+                            } ?>',
             style: {
                 fontFamily: 'monospace',
                 fontSize: '0.8em'
             }
         },
         xAxis: {
-            categories: ['<?php echo $infograph[1]['periode'] ?> - `<?php echo substr($infograph[1]['tahun'], 2); ?>', '<?php echo $infograph[2]['periode'] ?> - `<?php echo substr($infograph[2]['tahun'], 2); ?>', '<?php echo $infograph[3]['periode'] ?> - `<?php echo substr($infograph[3]['tahun'], 2); ?>', '<?php echo $infograph[4]['periode'] ?> - `<?php echo substr($infograph[4]['tahun'], 2); ?>', '<?php echo $infograph[5]['periode'] ?> - `<?php echo substr($infograph[5]['tahun'], 2); ?>']
+            categories: [
+                '<?php if ($wilayah == 'nasional') {
+                        echo $infographnasional[1]['periode'];
+                    } else if ($wilayah == 'provinsi') {
+                        echo $infographprovinsi[1]['periode'];
+                    } else if ($wilayah == 'kabupatenkota') {
+                        echo $infographkabupatenkota[1]['periode'];
+                    } ?> -`<?php if ($wilayah == 'nasional') {
+                                echo substr($infographnasional[1]['tahun'], 2);
+                            } else if ($wilayah == 'provinsi') {
+                                echo substr($infographprovinsi[1]['tahun'], 2);
+                            } else if ($wilayah == 'kabupatenkota') {
+                                echo substr($infographkabupatenkota[1]['tahun'], 2);
+                            } ?>',
+                '<?php if ($wilayah == 'nasional') {
+                        echo $infographnasional[2]['periode'];
+                    } else if ($wilayah == 'provinsi') {
+                        echo $infographprovinsi[2]['periode'];
+                    } else if ($wilayah == 'kabupatenkota') {
+                        echo $infographkabupatenkota[2]['periode'];
+                    } ?> -`<?php if ($wilayah == 'nasional') {
+                                echo substr($infographnasional[2]['tahun'], 2);
+                            } else if ($wilayah == 'provinsi') {
+                                echo substr($infographprovinsi[2]['tahun'], 2);
+                            } else if ($wilayah == 'kabupatenkota') {
+                                echo substr($infographkabupatenkota[2]['tahun'], 2);
+                            } ?>',
+                '<?php if ($wilayah == 'nasional') {
+                        echo $infographnasional[3]['periode'];
+                    } else if ($wilayah == 'provinsi') {
+                        echo $infographprovinsi[3]['periode'];
+                    } else if ($wilayah == 'kabupatenkota') {
+                        echo $infographkabupatenkota[3]['periode'];
+                    } ?> -`<?php if ($wilayah == 'nasional') {
+                                echo substr($infographnasional[3]['tahun'], 2);
+                            } else if ($wilayah == 'provinsi') {
+                                echo substr($infographprovinsi[3]['tahun'], 2);
+                            } else if ($wilayah == 'kabupatenkota') {
+                                echo substr($infographkabupatenkota[3]['tahun'], 2);
+                            } ?>',
+                '<?php if ($wilayah == 'nasional') {
+                        echo $infographnasional[4]['periode'];
+                    } else if ($wilayah == 'provinsi') {
+                        echo $infographprovinsi[4]['periode'];
+                    } else if ($wilayah == 'kabupatenkota') {
+                        echo $infographkabupatenkota[4]['periode'];
+                    } ?> -`<?php if ($wilayah == 'nasional') {
+                                echo substr($infographnasional[4]['tahun'], 2);
+                            } else if ($wilayah == 'provinsi') {
+                                echo substr($infographprovinsi[4]['tahun'], 2);
+                            } else if ($wilayah == 'kabupatenkota') {
+                                echo substr($infographkabupatenkota[4]['tahun'], 2);
+                            } ?>',
+                '<?php if ($wilayah == 'nasional') {
+                        echo $infographnasional[5]['periode'];
+                    } else if ($wilayah == 'provinsi') {
+                        echo $infographprovinsi[5]['periode'];
+                    } else if ($wilayah == 'kabupatenkota') {
+                        echo $infographkabupatenkota[5]['periode'];
+                    } ?> -`<?php if ($wilayah == 'nasional') {
+                                echo substr($infographnasional[5]['tahun'], 2);
+                            } else if ($wilayah == 'provinsi') {
+                                echo substr($infographprovinsi[5]['tahun'], 2);
+                            } else if ($wilayah == 'kabupatenkota') {
+                                echo substr($infographkabupatenkota[5]['tahun'], 2);
+                            } ?>'
+            ]
         },
         yAxis: {
             title: {
-                text: '<?php echo $infograph[5]['satuan'] ?>',
+                text: '<?php if ($wilayah == 'nasional') {
+                            echo $infographnasional[5]['satuan'];
+                        } else if ($wilayah == 'provinsi') {
+                            echo $infographprovinsi[5]['satuan'];
+                        } else if ($wilayah == 'kabupatenkota') {
+                            echo $infographkabupatenkota[5]['satuan'];
+                        } ?>',
                 style: {
                     fontFamily: 'monospace',
                     fontSize: '0.8em'
@@ -489,13 +634,32 @@ Last Update  : 15 March 2022 -->
                 enableMouseTracking: true
             }
         },
-        series: [{
-                name: 'Nasional',
-                data: [<?php echo $infograph[1]['nasional']; ?>, <?php echo $infograph[2]['nasional']; ?>, <?php echo $infograph[3]['nasional']; ?>, <?php echo $infograph[4]['nasional']; ?>, <?php echo $infograph[5]['nasional']; ?>]
-            },
+        series: [
+            <?php if ($wilayah == 'nasional') { ?> {
+                    name: 'Nasional',
+                    data: [<?php echo $infographnasional[1]['nasional']; ?>, <?php echo $infographnasional[2]['nasional']; ?>, <?php echo $infographnasional[3]['nasional']; ?>, <?php echo $infographnasional[4]['nasional']; ?>, <?php echo $infographnasional[5]['nasional']; ?>]
+                },
+            <?php } ?>
             <?php if ($wilayah == 'provinsi') { ?> {
+                    name: 'Nasional',
+                    data: [<?php echo $infographprovinsi[1]['nasional']; ?>, <?php echo $infographprovinsi[2]['nasional']; ?>, <?php echo $infographprovinsi[3]['nasional']; ?>, <?php echo $infographprovinsi[4]['nasional']; ?>, <?php echo $infographprovinsi[5]['nasional']; ?>]
+                },
+                {
                     name: '<?php echo $subWilayah[0]['nama_provinsi'] ?>',
-                    data: [<?php echo $infograph[1]['nilai']; ?>, <?php echo $infograph[2]['nilai']; ?>, <?php echo $infograph[3]['nilai']; ?>, <?php echo $infograph[4]['nilai']; ?>, <?php echo $infograph[5]['nilai']; ?>]
+                    data: [<?php echo $infographprovinsi[1]['nilai']; ?>, <?php echo $infographprovinsi[2]['nilai']; ?>, <?php echo $infographprovinsi[3]['nilai']; ?>, <?php echo $infographprovinsi[4]['nilai']; ?>, <?php echo $infographprovinsi[5]['nilai']; ?>]
+                },
+            <?php } ?>
+            <?php if ($wilayah == 'kabupatenkota') { ?> {
+                    name: 'Nasional',
+                    data: [<?php echo $infographkabupatenkota[1]['nasional']; ?>, <?php echo $infographkabupatenkota[2]['nasional']; ?>, <?php echo $infographkabupatenkota[3]['nasional']; ?>, <?php echo $infographkabupatenkota[4]['nasional']; ?>, <?php echo $infographkabupatenkota[5]['nasional']; ?>]
+                },
+                {
+                    name: '<?php echo $subWilayah[0]['nama_provinsi'] ?>',
+                    data: [<?php echo $infographprovinsi[1]['nilai']; ?>, <?php echo $infographprovinsi[2]['nilai']; ?>, <?php echo $infographprovinsi[3]['nilai']; ?>, <?php echo $infographprovinsi[4]['nilai']; ?>, <?php echo $infographprovinsi[5]['nilai']; ?>]
+                },
+                {
+                    name: '<?php echo $subWilayahDaerah[0]['nama_kabupaten'] ?>',
+                    data: [<?php echo $infographkabupatenkota[1]['nilai']; ?>, <?php echo $infographkabupatenkota[2]['nilai']; ?>, <?php echo $infographkabupatenkota[3]['nilai']; ?>, <?php echo $infographkabupatenkota[4]['nilai']; ?>, <?php echo $infographkabupatenkota[5]['nilai']; ?>]
                 },
             <?php } ?>
         ]
@@ -510,7 +674,7 @@ Last Update  : 15 March 2022 -->
             height: 300
         },
         title: {
-            text: 'Perbandingan <?php echo $IndikatorTable[0]['nama_indikator'] ?> antar Provinsi',
+            text: 'Perbandingan <?php echo $IndikatorTable[0]['nama_indikator'] ?> antar <?php echo ($wilayah == 'provinsi' ? 'Provinsi' : 'Daerah'); ?>',
             style: {
                 fontFamily: 'monospace',
                 fontSize: '1.2em',
@@ -606,34 +770,30 @@ Last Update  : 15 March 2022 -->
 
         if (this.value == 'provinsi') {
 
-            $.get("https://webapi.bps.go.id/v1/api/domain/type/prov/key/24fb1b646304e23577aaad005eb40714/", function(data) {
-                // console.log(data.data[1][0].domain_name);
-                // console.log(data.data[1].length);
+            // $.get("https://webapi.bps.go.id/v1/api/domain/type/prov/key/24fb1b646304e23577aaad005eb40714/", function(data) {
 
-                var txt = "<option value=''>-Pilih-</option>";
-                for (let i = 0; i < data.data[1].length; i++) {
-                    txt += "<option value=" + data.data[1][i].domain_id + ">" + data.data[1][i].domain_name + "</option>";
-                }
-                $("#selectSubWilayah").html(txt);
-                $("#selectSubWilayahMobile").html(txt);
-            });
+            //     var txt = "<option value=''>-Pilih-</option>";
+            //     for (let i = 0; i < data.data[1].length; i++) {
+            //         txt += "<option value=" + data.data[1][i].domain_id + ">" + data.data[1][i].domain_name + "</option>";
+            //     }
+            //     $("#selectSubWilayah").html(txt);
+            //     $("#selectSubWilayahMobile").html(txt);
+            // });
 
             $(".form-group-sub-wilayah").show();
             $(".form-group-kabupaten-kota").hide();
 
         } else if (this.value == 'kabupatenkota') {
 
-            $.get("https://webapi.bps.go.id/v1/api/domain/type/prov/key/24fb1b646304e23577aaad005eb40714/", function(data) {
-                // console.log(data.data[1][0].domain_name);
-                // console.log(data.data[1].length);
+            // $.get("https://webapi.bps.go.id/v1/api/domain/type/prov/key/24fb1b646304e23577aaad005eb40714/", function(data) {
 
-                var txt = "<option value=''>-Pilih-</option>";
-                for (let i = 0; i < data.data[1].length; i++) {
-                    txt += "<option value=" + data.data[1][i].domain_id + ">" + data.data[1][i].domain_name + "</option>";
-                }
-                $("#selectSubWilayah").html(txt);
-                $("#selectSubWilayahMobile").html(txt);
-            });
+            //     var txt = "<option value=''>-Pilih-</option>";
+            //     for (let i = 0; i < data.data[1].length; i++) {
+            //         txt += "<option value=" + data.data[1][i].domain_id + ">" + data.data[1][i].domain_name + "</option>";
+            //     }
+            //     $("#selectSubWilayah").html(txt);
+            //     $("#selectSubWilayahMobile").html(txt);
+            // });
 
             $(".form-group-sub-wilayah").show();
             $(".form-group-kabupaten-kota").show();
