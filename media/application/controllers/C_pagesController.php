@@ -57,8 +57,8 @@ class C_pagesController extends CI_Controller
 		foreach ($list_article as $article) {
 			$output .= '<div class="card mb-3">';
 			$output .= '<div class="row no-gutters">';
-			$output .= '<div class="col-md-5">';
-			$output .= '<img class="w-100 img-news" src="' . base_url() . 'assets/images/summernote/' . $article->title_picture . '" alt="' . $article->title . '" />';
+			$output .= '<div class="col-md-5 box-img-news" style="background: url(' . base_url() . 'assets/images/summernote/' . $article->title_picture . '); background-repeat: no-repeat; background-size: contain; background-position: center; background-color: black;">';
+			// $output .= '<img class="w-100 img-news" src="' . base_url() . 'assets/images/summernote/' . $article->title_picture . '" alt="' . $article->title . '" />';
 			$output .= '</div>';
 			$output .= '<div class="col-md-7">';
 			$output .= '<div class="card-body">';

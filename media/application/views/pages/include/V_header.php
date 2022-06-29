@@ -66,6 +66,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   <!-- End Animate Style -->
 
+  <!-- Maps API -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
+
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,URL"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <!-- End Maps API -->
+
   <!-- style -->
   <style>
     @media (max-width: 575px) {
@@ -290,8 +298,19 @@
         font-weight: 600;
       }
 
+      .box-img-news {
+        display: flex;
+        justify-content: center;
+        transition: 0.5s all ease-in-out;
+      }
+
+      .box-img-news:hover {
+        transform: scale(1.2);
+      }
+
       .img-news {
-        height: 11.5rem;
+        /* height: 11.5rem; */
+        /* width: auto !important; */
       }
 
       .title-news {
@@ -374,6 +393,20 @@
 
     /* Ghost Button */
     .card-activity:hover {
+      color: white;
+      border: white solid 1px;
+      background: #1f3984;
+    }
+
+    .infograph-more {
+      min-width: 80px;
+      min-height: 80px;
+      border-radius: 100%;
+      border: 1px solid black;
+      align-self: center;
+    }
+
+    .infograph-more:hover {
       color: white;
       border: white solid 1px;
       background: #1f3984;
@@ -510,6 +543,63 @@
       border: 1px solid black;
       color: white;
     }
+
+    /* infograph page start */
+
+    /**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+    .map-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: #fff;
+      margin-left: 20px;
+      font-family: Arial, sans-serif;
+      border-radius: 3px;
+      padding-left: 3px;
+      padding-right: 3px;
+      box-shadow: 0 0 0 2px rgb(0 0 0 / 10%);
+    }
+
+    #features {
+      top: 0;
+      height: 20px;
+      margin-top: 20px;
+    }
+
+    .map-legend {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: #fff;
+      margin-left: 20px;
+      font-family: Arial, sans-serif;
+      border-radius: 3px;
+      padding-left: 3px;
+      padding-right: 3px;
+      box-shadow: 0 0 0 2px rgb(0 0 0 / 10%);
+      height: 40px;
+      width: 100px;
+    }
+
+    .map-description {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #fff;
+      margin-right: 20px;
+      font-family: Arial, sans-serif;
+      border-radius: 3px;
+      padding-left: 3px;
+      padding-right: 3px;
+      box-shadow: 0 0 0 2px rgb(0 0 0 / 10%);
+      height: 40px;
+      width: 100px;
+    }
+
+    /* infograph end */
 
     /* #menuFile:hover {
       background-color: #0D4A82;

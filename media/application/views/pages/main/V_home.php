@@ -20,7 +20,8 @@
                       alt="First slide"
                   /> -->
                     <a class="btn-read-more-article" data-id="<?php echo $carousel_content[$i][0]->id ?>" href="<?= base_url(); ?>news/<?php echo $carousel_content[$i][0]->slug ?>" target="_blank" rel="noopener">
-                      <img class="d-block w-100" style="height: 28vw;" src="<?= base_url(); ?>assets/images/summernote/<?php echo $carousel_content[$i][0]->title_picture ?>" alt="<?php echo $i ?> slide" />
+                      <!-- <img class="d-block w-100" style="height: 28vw;" src="<?= base_url(); ?>assets/images/summernote/<?php echo $carousel_content[$i][0]->title_picture ?>" alt="<?php echo $i ?> slide" /> -->
+                      <img class="d-block w-100" style="background: url(<?= base_url(); ?>assets/images/summernote/<?php echo $carousel_content[$i][0]->title_picture ?>); background-repeat: no-repeat; background-size: contain; background-position: center; background-color: black;" alt="<?php echo $i ?> slide" />
                       <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.7); right: 0!important; left: 0!important; bottom: 0!important; padding: 1% 5% 3% 5%; text-align: left;">
                         <p class="animate__animated animate__fadeInLeft"><strong><?php echo $carousel_content[$i][0]->title ?></strong></p>
                       </div>
@@ -57,82 +58,90 @@
         <!-- infografis card -->
         <div class="col-md-12">
           <section class="card-infografis">
+            <a href="<?= base_url(); ?>infograph" target="_blank" style="color: black;">
+              Infografis
+              <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+            <hr />
             <div class="row" style="overflow-x: none; flex-wrap: nowrap; font-family: 'Monda', sans-serif;">
-              <div class="card ml-3 mt-2 mb-3" style="min-width: 240px; height: 150px; border-radius: 10px; border: 1px solid black;">
-                <div class="card-body">
-                  <div class="col-12 px-0">
-                    <h6 class="card-title mb-3" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Tingkat Pengangguran Terbuka</b></h6>
+              <div class="card ml-3 mt-2 mb-3" style="min-width: 230px; height: 175px; border-radius: 10px; border: 1px solid black;">
+                <div class="card-header" style="height: 55px;">
+                  <div class="col-12 p-0">
+                    <h6 class="card-title" style="font-family: 'Monda', sans-serif; font-size: 14px; "><b>Pertumbuhan Ekonomi</b></h6>
                     <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-                  </div>
-                  <div class="row">
-                    <div class="col-6" style="align-self: center;">
-                      <div style="display: flex; align-items: center;">
-                        <h2 style="font-family: 'Monda', sans-serif; font-size: 20px;">2.39%</h2>
-                        <h6><span class="badge badge-success mx-2"><i class="fa fa-arrow-up" aria-hidden="true"></i></span></h6>
-                      </div>
-                      <p class="card-text" style="font-family: 'Monda', sans-serif; font-size: 12px; padding-bottom: 0px; margin-bottom: 5px;"><b>Last Q:</b> 2.35%</p>
-                      <a href="<?= base_url(); ?>infograph?indikator=tingkat_pengangguran_terbuka&wilayah=nasional" target="_blank" type="button" style="padding: 0.5% 10%;" class="button-read-more btn-read-more-article">
-                        Detail <i class="fa fa-caret-right"></i>
-                      </a>
-                    </div>
-                    <div class="col-6">
-                      <img class="w-100" src="<?= base_url(); ?>assets/images/img/icon_pemantauan/pertumbuhan_ekonomi.jpg" alt="Pertumbuhan Ekonomi" />
-                    </div>
-                  </div>
-                  <div class="col-12">
-
                   </div>
                 </div>
-              </div>
-              <div class="card ml-3 mt-2 mb-3" style="min-width: 240px; height: 150px; border-radius: 10px; border: 1px solid black;">
-                <div class="card-body">
-                  <div class="col-12 px-0">
-                    <h6 class="card-title mb-3" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Tingkat Kemiskinan</b></h6>
-                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-                  </div>
+                <div class="card-body" style="padding: 0.75rem;">
                   <div class="row">
                     <div class="col-6" style="align-self: center;">
                       <div style="display: flex; align-items: center;">
-                        <h2 style="font-family: 'Monda', sans-serif; font-size: 20px;">1.29%</h2>
-                        <h6><span class="badge badge-success mx-2"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></h6>
-                      </div>
-                      <p class="card-text" style="font-family: 'Monda', sans-serif; font-size: 12px; padding-bottom: 0px; margin-bottom: 5px;"><b>Last Q:</b> 1.35%</p>
-                      <a href="<?= base_url(); ?>infograph?indikator=tingkat_kemiskinan&wilayah=nasional" target="_blank" type="button" style="padding: 0.5% 10%;" class="button-read-more btn-read-more-article">
-                        Detail <i class="fa fa-caret-right"></i>
-                      </a>
-                    </div>
-                    <div class="col-6">
-                      <img class="w-100" src="<?= base_url(); ?>assets/images/img/icon_pemantauan/tingkat_kemiskinan.jpg" alt="Pertumbuhan Ekonomi" />
-                    </div>
-                  </div>
-                  <div class="col-12">
-
-                  </div>
-                </div>
-              </div>
-              <div class="card ml-3 mt-2 mb-3" style="min-width: 240px; height: 150px; border-radius: 10px; border: 1px solid black;">
-                <div class="card-body">
-                  <div class="col-12 px-0">
-                    <h6 class="card-title mb-3" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Indeks Pembangunan Manusia</b></h6>
-                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
-                  </div>
-                  <div class="row">
-                    <div class="col-6" style="align-self: center;">
-                      <div style="display: flex; align-items: center;">
-                        <h2 style="font-family: 'Monda', sans-serif; font-size: 20px;">72.18 </h2>
+                        <h2 style="font-family: 'Monda', sans-serif; font-size: 14px;">2.97% </h2>
                         <h6><span class="badge badge-success mx-2"><i class="fa fa-arrow-up" aria-hidden="true"></i></span></h6>
                       </div>
-                      <p class="card-text" style="font-family: 'Monda', sans-serif; font-size: 12px; padding-bottom: 0px; margin-bottom: 5px;"><b>Last Q:</b> 71.99</p>
-                      <a href="<?= base_url(); ?>infograph?indikator=indeks_pembangunan_manusia&wilayah=nasional" target="_blank" type="button" style="padding: 0.5% 10%;" class="button-read-more btn-read-more-article">
-                        Detail <i class="fa fa-caret-right"></i>
-                      </a>
+                      <p class="card-text" style="font-family: 'Monda', sans-serif; font-size: 10px; padding-bottom: 0px; margin-bottom: 5px;"><b>Akhir TW (2022):</b> 3.69%</p>
                     </div>
                     <div class="col-6">
                       <img class="w-100" src="<?= base_url(); ?>assets/images/img/icon_pemantauan/indeks_pembangunan_manusia.jpg" alt="Indeks Pembangunan Manusia" />
                     </div>
                   </div>
-                  <div class="col-12">
-
+                  <div class="card-footer pl-0 pt-0">
+                    <a href="<?= base_url(); ?>infograph?indikator=indeks_pembangunan_manusia&wilayah=nasional" target="_blank" type="button" style="padding: 0.5% 10%;" class="button-read-more btn-read-more-article">
+                      Detail <i class="fa fa-caret-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card ml-3 mt-2 mb-3" style="min-width: 230px; height: 175px; border-radius: 10px; border: 1px solid black;">
+                <div class="card-header" style="height: 55px;">
+                  <div class="col-12 px-0">
+                    <h6 class="card-title mb-2" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Tingkat Pengangguran Terbuka</b></h6>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                  </div>
+                </div>
+                <div class="card-body" style="padding: 0.75rem;">
+                  <div class="row">
+                    <div class="col-6" style="align-self: center;">
+                      <div style="display: flex; align-items: center;">
+                        <h2 style="font-family: 'Monda', sans-serif; font-size: 14px;">2.97% </h2>
+                        <h6><span class="badge badge-success mx-2"><i class="fa fa-arrow-up" aria-hidden="true"></i></span></h6>
+                      </div>
+                      <p class="card-text" style="font-family: 'Monda', sans-serif; font-size: 10px; padding-bottom: 0px; margin-bottom: 5px;"><b>Akhir TW (2022):</b> 3.69%</p>
+                    </div>
+                    <div class="col-6">
+                      <img class="w-100" src="<?= base_url(); ?>assets/images/img/icon_pemantauan/indeks_pembangunan_manusia.jpg" alt="Indeks Pembangunan Manusia" />
+                    </div>
+                  </div>
+                  <div class="card-footer pl-0 pt-0">
+                    <a href="<?= base_url(); ?>infograph?indikator=indeks_pembangunan_manusia&wilayah=nasional" target="_blank" type="button" style="padding: 0.5% 10%;" class="button-read-more btn-read-more-article">
+                      Detail <i class="fa fa-caret-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card ml-3 mt-2 mb-3" style="min-width: 230px; height: 175px; border-radius: 10px; border: 1px solid black;">
+                <div class="card-header" style="height: 55px;">
+                  <div class="col-12 px-0">
+                    <h6 class="card-title mb-2" style="font-family: 'Monda', sans-serif; font-size: 14px;"><b>Tingkat Kemiskinan</b></h6>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+                  </div>
+                </div>
+                <div class="card-body" style="padding: 0.75rem;">
+                  <div class="row">
+                    <div class="col-6" style="align-self: center;">
+                      <div style="display: flex; align-items: center;">
+                        <h2 style="font-family: 'Monda', sans-serif; font-size: 14px;">2.97% </h2>
+                        <h6><span class="badge badge-success mx-2"><i class="fa fa-arrow-up" aria-hidden="true"></i></span></h6>
+                      </div>
+                      <p class="card-text" style="font-family: 'Monda', sans-serif; font-size: 10px; padding-bottom: 0px; margin-bottom: 5px;"><b>Akhir TW (2022):</b> 3.69%</p>
+                    </div>
+                    <div class="col-6">
+                      <img class="w-100" src="<?= base_url(); ?>assets/images/img/icon_pemantauan/indeks_pembangunan_manusia.jpg" alt="Indeks Pembangunan Manusia" />
+                    </div>
+                  </div>
+                  <div class="card-footer pl-0 pt-0">
+                    <a href="<?= base_url(); ?>infograph?indikator=indeks_pembangunan_manusia&wilayah=nasional" target="_blank" type="button" style="padding: 0.5% 10%;" class="button-read-more btn-read-more-article">
+                      Detail <i class="fa fa-caret-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -848,6 +857,24 @@
         }
       });
     });
+
+    // $(document).on('load', '.list_article', function() {
+    //   var imageSrc = document
+    //     .getElementByClassName('box-img-news')
+    //     .style.backgroundImage.replace(/url\((['"])?(.*?)\1\)/gi, '$2')
+    //     .split(',')[0];
+
+    //   // I just broke it up on newlines for readability
+
+    //   var image = new Image();
+    //   image.src = imageSrc;
+
+    //   image.onload = function() {
+    //     var width = image.width,
+    //       height = image.height;
+    //     alert('width =' + width + ', height = ' + height);
+    //   };
+    // });
 
   });
 </script>
